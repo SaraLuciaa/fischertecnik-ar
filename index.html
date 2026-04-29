@@ -19,24 +19,16 @@
 </head>
 
 <body>
-
   <!--
-    IMPORTANTE:
-    - Cámara SIEMPRE en 0 0 0
-    - Escala grande SOLO en el contenedor
-    - El glb queda en posición 0 0 0
-    - El marcador puede ser pequeño físicamente
-  -->
+      Cada marcador usa un targetIndex distinto dentro de targets.mind
+      El cuadrado físico impreso es el marcador.
+      El modelo GLB se proyecta flotando encima, como tu ejemplo de Tinkercad.
+    -->
 
-  <a-scene
-    mindar-image="imageTargetSrc: ./targets/targets.mind; maxTrack: 8;"
-    color-space="sRGB"
-    renderer="alpha: true; colorManagement: true; physicallyCorrectLights: false"
-    vr-mode-ui="enabled: false"
-    device-orientation-permission-ui="enabled: false"
-  >
-
-    <!-- MODELO -->
+  <a-scene mindar-image="imageTargetSrc: ./targets/targets.mind; maxTrack: 8;" color-space="sRGB"
+    renderer="alpha: true; colorManagement: true; physicallyCorrectLights: false" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+    <!-- MODELO YA DEFINIDO -->
     <a-assets>
       <a-asset-item id="avatarModel" src="./assets/example.glb"></a-asset-item>
     </a-assets>
@@ -44,7 +36,7 @@
     <!-- CÁMARA -->
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-    <!-- LUCES -->
+    <!-- ILUMINACIÓN -->
     <a-light type="ambient" color="#ffffff" intensity="1.2"></a-light>
     <a-light type="hemisphere" color="#ffffff" groundColor="#334466" intensity="1"></a-light>
     <a-light type="directional" color="#ffffff" intensity="1.2" position="2 5 3"></a-light>
@@ -52,49 +44,36 @@
 
     <!-- ========= MARCADOR 0 ========= -->
     <a-entity mindar-image-target="targetIndex: 0">
-      <a-entity position="0 0.15 0" scale="8 8 8">
-        <a-gltf-model
-          src="#avatarModel"
-          rotation="0 0 0"
-          position="0 0 0"
-        ></a-gltf-model>
+
+      <!-- Escala en unidades del marcador (~1 = ancho de la imagen en MindAR). 2 = modelo ~2× el ancho impreso. -->
+      <a-entity position="0 0.5 0.12" scale="2 2 2">
+        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
       </a-entity>
+
     </a-entity>
 
     <!-- ========= MARCADOR 1 ========= -->
     <a-entity mindar-image-target="targetIndex: 1">
-      <a-entity position="0 0.15 0" scale="8 8 8">
-        <a-gltf-model
-          src="#avatarModel"
-          rotation="0 0 0"
-          position="0 0 0"
-        ></a-gltf-model>
+      <a-entity position="0 0.5 0.12" scale="2 2 2">
+        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
       </a-entity>
     </a-entity>
 
     <!-- ========= MARCADOR 2 ========= -->
     <a-entity mindar-image-target="targetIndex: 2">
-      <a-entity position="0 0.15 0" scale="8 8 8">
-        <a-gltf-model
-          src="#avatarModel"
-          rotation="0 0 0"
-          position="0 0 0"
-        ></a-gltf-model>
+      <a-entity position="0 0.5 0.12" scale="2 2 2">
+        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
       </a-entity>
     </a-entity>
 
     <!-- ========= MARCADOR 3 ========= -->
     <a-entity mindar-image-target="targetIndex: 3">
-      <a-entity position="0 0.15 0" scale="8 8 8">
-        <a-gltf-model
-          src="#avatarModel"
-          rotation="0 0 0"
-          position="0 0 0"
-        ></a-gltf-model>
+      <a-entity position="0 0.5 0.12" scale="2 2 2">
+        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
       </a-entity>
     </a-entity>
 
   </a-scene>
-
 </body>
+
 </html>
