@@ -3,72 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MindAR — imagen + modelo</title>
+    <title>MindAR — múltiples marcadores + modelo flotante</title>
+
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+    <script src="./ar-pbr-env.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
   </head>
+
   <body>
     <!--
-      MindAR coloca el origen local en el centro de la imagen compilada en .mind
-      (1 unidad ≈ ancho del marcador). Ajusta scale/position del modelo según tu GLB.
+      Cada marcador usa un targetIndex distinto dentro de targets.mind
+      El cuadrado físico impreso es el marcador.
+      El modelo GLB se proyecta flotando encima, como tu ejemplo de Tinkercad.
     -->
+
     <a-scene
       mindar-image="imageTargetSrc: ./targets/targets.mind; maxTrack: 8;"
       color-space="sRGB"
-      renderer="alpha: true; colorManagement: true; physicallyCorrectLights: true"
+      renderer="alpha: true; colorManagement: true; physicallyCorrectLights: false"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
+      <!-- MODELO YA DEFINIDO -->
       <a-assets>
         <a-asset-item id="avatarModel" src="./assets/example.glb"></a-asset-item>
       </a-assets>
 
+      <!-- CÁMARA -->
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-      <a-light type="ambient" color="#ffffff" intensity="0.9"></a-light>
-      <a-light type="directional" color="#ffffff" intensity="0.6" position="1 2 1"></a-light>
+      <!-- ILUMINACIÓN -->
+      <a-light type="ambient" color="#ffffff" intensity="1.2"></a-light>
+      <a-light type="hemisphere" color="#ffffff" groundColor="#334466" intensity="1"></a-light>
+      <a-light type="directional" color="#ffffff" intensity="1.2" position="2 5 3"></a-light>
+      <a-light type="directional" color="#dde8ff" intensity="0.7" position="-3 2 -2"></a-light>
 
-      <!-- targetIndex = orden en targets.mind; quita sobrantes si compilaste menos imágenes -->
+      <!-- ========= MARCADOR 0 ========= -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-entity position="0 0 0.12" scale="0.2 0.2 0.2">
+
+        <!-- Modelo flotando sobre el marcador -->
+        <!-- Y = altura -->
+        <!-- Z = profundidad -->
+        <a-entity position="0 0.35 0" scale="0.25 0.25 0.25">
           <a-gltf-model
             src="#avatarModel"
-            position="0 0 0"
             rotation="0 0 0"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+            position="0 0 0"
           ></a-gltf-model>
         </a-entity>
+
       </a-entity>
+
+      <!-- ========= MARCADOR 1 ========= -->
       <a-entity mindar-image-target="targetIndex: 1">
-        <a-entity position="0 0 0.12" scale="0.2 0.2 0.2">
+        <a-entity position="0 0.35 0" scale="0.25 0.25 0.25">
           <a-gltf-model
             src="#avatarModel"
-            position="0 0 0"
             rotation="0 0 0"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+            position="0 0 0"
           ></a-gltf-model>
         </a-entity>
       </a-entity>
+
+      <!-- ========= MARCADOR 2 ========= -->
       <a-entity mindar-image-target="targetIndex: 2">
-        <a-entity position="0 0 0.12" scale="0.2 0.2 0.2">
+        <a-entity position="0 0.35 0" scale="0.25 0.25 0.25">
           <a-gltf-model
             src="#avatarModel"
-            position="0 0 0"
             rotation="0 0 0"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+            position="0 0 0"
           ></a-gltf-model>
         </a-entity>
       </a-entity>
+
+      <!-- ========= MARCADOR 3 ========= -->
       <a-entity mindar-image-target="targetIndex: 3">
-        <a-entity position="0 0 0.12" scale="0.2 0.2 0.2">
+        <a-entity position="0 0.35 0" scale="0.25 0.25 0.25">
           <a-gltf-model
             src="#avatarModel"
-            position="0 0 0"
             rotation="0 0 0"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+            position="0 0 0"
           ></a-gltf-model>
         </a-entity>
       </a-entity>
+
     </a-scene>
   </body>
 </html>
