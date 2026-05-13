@@ -7,6 +7,7 @@
   <title>MindAR — múltiples marcadores + imagen flotante</title>
 
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="./ar-natural-aspect.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
   <script src="./ar-pbr-env.js"></script>
 
@@ -22,17 +23,29 @@
   <!--
       Cada marcador usa un targetIndex distinto dentro de targets.mind
       El cuadrado físico impreso es el marcador.
-      La textura (JPEG) se muestra flotando encima del marcador impreso.
+      La textura PNG se muestra flotando encima del marcador impreso.
+      Orden 0..5 = mismo orden alfabético que markers_sources/ al compilar targets.mind
     -->
 
-  <a-scene mindar-image="imageTargetSrc: ./targets/targets.mind; maxTrack: 8;" color-space="sRGB"
+  <!-- filterMinCF / filterBeta: One Euro (menos jitter; valores más bajos = más suave, algo más lento).
+       missTolerance: aguanta más frames sin match antes de ocultar (menos parpadeo). -->
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets/targets.mind; maxTrack: 8; filterMinCF: 0.00008; filterBeta: 2; missTolerance: 14; warmupTolerance: 6;"
+    color-space="sRGB"
     renderer="alpha: true; colorManagement: true; physicallyCorrectLights: false" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
-    <!-- Imagen en assets (no usar a-asset-item + a-gltf-model para JPEG). -->
     <a-assets>
-      <!-- JPEG no es GLB: hay que usar <img> + a-image (a-gltf-model solo carga modelos 3D). -->
-      <img id="avatarImage" src="./assets/example.jpeg" crossorigin="anonymous" />
-      <img id="manipuladorVacuumPng" src="./assets/Manipulador de aspiración al vacíode aspiración al vacío.png"
+      <img id="imgAlmacen" src="./assets/Almacén con techo alto automatizadode estantería elevada.png"
+        crossorigin="anonymous" />
+      <img id="imgCinta" src="./assets/Cinta de clasificación con detección de colorde multiprocesamiento con horno.png"
+        crossorigin="anonymous" />
+      <img id="imgAmbienteSSC" src="./assets/Estación ambiental con cámara de control (SSC).png"
+        crossorigin="anonymous" />
+      <img id="imgIngresoNFC" src="./assets/Estación de ingreso_salida con reconocimiento de color y lector NFC.png"
+        crossorigin="anonymous" />
+      <img id="imgMultiproHorno" src="./assets/Estación de multiprocesamiento con horno.png"
+        crossorigin="anonymous" />
+      <img id="imgManipuladorVacuum" src="./assets/Manipulador de aspiración al vacíode aspiración al vacío.png"
         crossorigin="anonymous" />
     </a-assets>
 
@@ -45,49 +58,50 @@
     <a-light type="directional" color="#ffffff" intensity="1.2" position="2 5 3"></a-light>
     <a-light type="directional" color="#dde8ff" intensity="0.7" position="-3 2 -2"></a-light>
 
-    <!-- ========= MARCADOR 0 ========= -->
+    <!-- ========= MARCADOR 0 — Almacén ========= -->
     <a-entity mindar-image-target="targetIndex: 0">
-
-      <!-- Escala en unidades del marcador (~1 = ancho de la imagen en MindAR). 2 = modelo ~2× el ancho impreso. -->
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
+        <a-image src="#imgAlmacen" width="1" ar-natural-aspect="baseWidth: 1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+          material="side: double"></a-image>
       </a-entity>
-
     </a-entity>
 
-    <!-- ========= MARCADOR 1 ========= -->
+    <!-- ========= MARCADOR 1 — Cinta ========= -->
     <a-entity mindar-image-target="targetIndex: 1">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
+        <a-image src="#imgCinta" width="1" ar-natural-aspect="baseWidth: 1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+          material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
-    <!-- ========= MARCADOR 2 ========= -->
+    <!-- ========= MARCADOR 2 — Estación ambiental SSC ========= -->
     <a-entity mindar-image-target="targetIndex: 2">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
+        <a-image src="#imgAmbienteSSC" width="1" ar-natural-aspect="baseWidth: 1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+          material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
-    <!-- ========= MARCADOR 3 ========= -->
+    <!-- ========= MARCADOR 3 — Ingreso/salida NFC ========= -->
     <a-entity mindar-image-target="targetIndex: 3">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
+        <a-image src="#imgIngresoNFC" width="1" ar-natural-aspect="baseWidth: 1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+          material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
-    <!-- ========= MARCADOR 5 — PNG Manipulador ========= -->
+    <!-- ========= MARCADOR 4 — Multiprocesamiento horno ========= -->
+    <a-entity mindar-image-target="targetIndex: 4">
+      <a-entity position="0 0.5 0.12" scale="2 2 2">
+        <a-image src="#imgMultiproHorno" width="1" ar-natural-aspect="baseWidth: 1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+          material="side: double"></a-image>
+      </a-entity>
+    </a-entity>
+
+    <!-- ========= MARCADOR 5 — Manipulador vacío ========= -->
     <a-entity mindar-image-target="targetIndex: 5">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <a-image src="#manipuladorVacuumPng" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+        <a-image src="#imgManipuladorVacuum" width="1" ar-natural-aspect="baseWidth: 1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
           material="side: double"></a-image>
       </a-entity>
     </a-entity>

@@ -1,5 +1,19 @@
-const EXAMPLE_GLB_ASSET_ID = "#ar-example-model";
-const DEFAULT_MODEL_SCALE = "0.2 0.2 0.2";
+/**
+ * Script opcional: si lo incluyes en la página, genera anclas MindAR con planos PNG
+ * (misma lista y orden que index.html). Requiere ar-natural-aspect.js después de A-Frame.
+ * No uses app.js y marcadores declarativos a la vez.
+ */
+const OVERLAY_IMAGE_SRC = [
+  "./assets/Almacén con techo alto automatizadode estantería elevada.png",
+  "./assets/Cinta de clasificación con detección de colorde multiprocesamiento con horno.png",
+  "./assets/Estación ambiental con cámara de control (SSC).png",
+  "./assets/Estación de ingreso_salida con reconocimiento de color y lector NFC.png",
+  "./assets/Estación de multiprocesamiento con horno.png",
+  "./assets/Manipulador de aspiración al vacíode aspiración al vacío.png",
+];
+
+const WRAPPER_POS = "0 0.5 0.12";
+const WRAPPER_SCALE = "2 2 2";
 
 function buildImageTargets(scene) {
   if (scene.dataset.targetsBuilt === "true") return;
@@ -7,20 +21,30 @@ function buildImageTargets(scene) {
   const raw = scene.getAttribute("data-image-target-count");
   const parsed = parseInt(raw, 10);
   const count =
-    Number.isFinite(parsed) && parsed > 0 ? parsed : 4;
+    Number.isFinite(parsed) && parsed > 0 ? parsed : OVERLAY_IMAGE_SRC.length;
 
   for (let i = 0; i < count; i++) {
     const anchor = document.createElement("a-entity");
     anchor.setAttribute("mindar-image-target", { targetIndex: i });
 
-    const model = document.createElement("a-gltf-model");
-    model.setAttribute("src", EXAMPLE_GLB_ASSET_ID);
-    model.setAttribute("position", "0 0 0");
-    model.setAttribute("rotation", "0 0 0");
-    model.setAttribute("scale", DEFAULT_MODEL_SCALE);
-    model.setAttribute("animation-mixer", "");
+    const wrapper = document.createElement("a-entity");
+    wrapper.setAttribute("position", WRAPPER_POS);
+    wrapper.setAttribute("scale", WRAPPER_SCALE);
 
-    anchor.appendChild(model);
+    const plane = document.createElement("a-image");
+    const src = OVERLAY_IMAGE_SRC[i];
+    if (src) {
+      plane.setAttribute("src", src);
+      plane.setAttribute("width", "1");
+      plane.setAttribute("position", "0 0 0");
+      plane.setAttribute("rotation", "0 180 0");
+      plane.setAttribute("scale", "-1 1 1");
+      plane.setAttribute("material", "side: double");
+      plane.setAttribute("ar-natural-aspect", { baseWidth: 1 });
+    }
+
+    wrapper.appendChild(plane);
+    anchor.appendChild(wrapper);
     scene.appendChild(anchor);
   }
 
@@ -39,24 +63,11 @@ function bindTargetEvents(scene) {
 
     target.addEventListener("targetFound", () => {
       estado.style.display = "block";
-      estado.textContent = `Marcador ${index} · modelo cargado`;
-
-      const model = target.querySelector("a-gltf-model");
-      if (model) {
-        model.setAttribute(
-          "animation",
-          "property: rotation; to: 0 360 0; loop: true; dur: 6000; easing: linear"
-        );
-      }
+      estado.textContent = `Marcador ${index} · seguimiento activo`;
     });
 
     target.addEventListener("targetLost", () => {
       estado.style.display = "none";
-
-      const model = target.querySelector("a-gltf-model");
-      if (model) {
-        model.removeAttribute("animation");
-      }
     });
   });
 }
