@@ -63,24 +63,3 @@ Si trabajas con el código en tu máquina:
 
 El orden de los `targetIndex` (0 … 5) en `index.html` sigue el **orden alfabético** de los nombres en `markers_sources/`, igual que suele ordenarse al compilar varias imágenes en un solo `.mind`. Si recompilas con otro orden, tendrás que reordenar los `targetIndex` o las texturas en el HTML.
 
----
-
-## Regenerar `targets.mind` (opcional)
-
-Si cambias o añades JPG en `markers_sources/`, debes **volver a compilar** un `.mind` con la herramienta oficial de MindAR (Image Target Compiler) y sustituir `targets/targets.mind`. Después alinea el orden de los targets con los `mindar-image-target="targetIndex: N"` y los `<img>` en `index.html`.
-
-Documentación del ecosistema: [Mind AR JS](https://hiukim.github.io/mind-ar-js-doc/).
-
----
-
-## Ajustes rápidos
-
-- **Seguimiento más suave / menos temblor:** en `index.html`, atributo `mindar-image` — parámetros `filterMinCF`, `filterBeta`, `missTolerance` (comentarios en el propio HTML).
-- **Tamaño del overlay:** entidad hija con `position` y `scale` alrededor de cada `a-image` (p. ej. `scale="2 2 2"`).
-- **Proporción de la imagen:** componente `ar-natural-aspect` (`baseWidth`).
-
----
-
-## Licencia y créditos
-
-Si el proyecto es académico o de laboratorio, indica aquí la licencia y los créditos de imágenes Fischertechnik según corresponda.
