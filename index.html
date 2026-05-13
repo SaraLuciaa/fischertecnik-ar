@@ -49,7 +49,8 @@
       <!-- Escala en unidades del marcador (~1 = ancho de la imagen en MindAR). 2 = modelo ~2× el ancho impreso. -->
       <a-entity position="0 0.5 0.12" scale="2 2 2">
         <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
+        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
       </a-entity>
 
     </a-entity>
@@ -58,7 +59,8 @@
     <a-entity mindar-image-target="targetIndex: 1">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
         <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
+        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
@@ -66,7 +68,8 @@
     <a-entity mindar-image-target="targetIndex: 2">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
         <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
+        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
@@ -74,7 +77,8 @@
     <a-entity mindar-image-target="targetIndex: 3">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
         <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
-        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
+        <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
