@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MindAR — múltiples marcadores + modelo flotante</title>
+  <title>MindAR — múltiples marcadores + imagen flotante</title>
 
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
@@ -22,15 +22,16 @@
   <!--
       Cada marcador usa un targetIndex distinto dentro de targets.mind
       El cuadrado físico impreso es el marcador.
-      El modelo GLB se proyecta flotando encima, como tu ejemplo de Tinkercad.
+      La textura (JPEG) se muestra flotando encima del marcador impreso.
     -->
 
   <a-scene mindar-image="imageTargetSrc: ./targets/targets.mind; maxTrack: 8;" color-space="sRGB"
     renderer="alpha: true; colorManagement: true; physicallyCorrectLights: false" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
-    <!-- MODELO YA DEFINIDO -->
+    <!-- Imagen en assets (no usar a-asset-item + a-gltf-model para JPEG). -->
     <a-assets>
-      <a-asset-item id="avatarModel" src="./assets/example.jpeg"></a-asset-item>
+      <!-- JPEG no es GLB: hay que usar <img> + a-image (a-gltf-model solo carga modelos 3D). -->
+      <img id="avatarImage" src="./assets/example.jpeg" crossorigin="anonymous" />
     </a-assets>
 
     <!-- CÁMARA -->
@@ -47,7 +48,8 @@
 
       <!-- Escala en unidades del marcador (~1 = ancho de la imagen en MindAR). 2 = modelo ~2× el ancho impreso. -->
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
+        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
       </a-entity>
 
     </a-entity>
@@ -55,21 +57,24 @@
     <!-- ========= MARCADOR 1 ========= -->
     <a-entity mindar-image-target="targetIndex: 1">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
+        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
     <!-- ========= MARCADOR 2 ========= -->
     <a-entity mindar-image-target="targetIndex: 2">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
+        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
     <!-- ========= MARCADOR 3 ========= -->
     <a-entity mindar-image-target="targetIndex: 3">
       <a-entity position="0 0.5 0.12" scale="2 2 2">
-        <a-gltf-model src="#avatarModel" rotation="0 0 0" position="0 0 0"></a-gltf-model>
+        <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
+        <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
