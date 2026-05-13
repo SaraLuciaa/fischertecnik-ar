@@ -32,6 +32,8 @@
     <a-assets>
       <!-- JPEG no es GLB: hay que usar <img> + a-image (a-gltf-model solo carga modelos 3D). -->
       <img id="avatarImage" src="./assets/example.jpeg" crossorigin="anonymous" />
+      <img id="manipuladorVacuumPng" src="./assets/Manipulador de aspiración al vacíode aspiración al vacío.png"
+        crossorigin="anonymous" />
     </a-assets>
 
     <!-- CÁMARA -->
@@ -79,6 +81,14 @@
         <!-- rotation 0 180 0: el plano por defecto suele mirar al revés respecto a la cámara en MindAR (+Z hacia el usuario). -->
         <!-- scale -1 1 1: la rotación 180° en Y invierte la textura; esto la corrige. -->
         <a-image src="#avatarImage" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1" material="side: double"></a-image>
+      </a-entity>
+    </a-entity>
+
+    <!-- ========= MARCADOR 5 — PNG Manipulador ========= -->
+    <a-entity mindar-image-target="targetIndex: 5">
+      <a-entity position="0 0.5 0.12" scale="2 2 2">
+        <a-image src="#manipuladorVacuumPng" width="1" position="0 0 0" rotation="0 180 0" scale="-1 1 1"
+          material="side: double"></a-image>
       </a-entity>
     </a-entity>
 
